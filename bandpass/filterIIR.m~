@@ -20,10 +20,9 @@ equiAnalogFreq = tan(digitalFreq/2);
 z_s = equiAnalogFreq(2) * equiAnalogFreq(3);
 f_B = equiAnalogFreq(3) - equiAnalogFreq(2);
 
-equiAnalogLowPassFreq = zeros(size(equiAnalogFreq));
-for i=1:size(equiAnalogFreq)
-	equiAnalogLowPassFreq(i) = ((equiAnalogFreq(i)^2)-z_s)/(f_B*equiAnalogFreq(i));
-end
+equiAnalogLowPassFreq = zeros(size(equ));
+equiAnalogLowPassFreq = ((equiAnalogFreq.^2)-z_s)/(f_B*equiAnalogFreq);
+
 D_1 = (1/(1-passBandTolerance)^2)-1;
 D_2 = (1/stopBandTolerance.^2)-1;
 
@@ -32,10 +31,10 @@ epsilon = sqrt(D_1);
 absEquiAnalogLowPassFreq = abs(equiAnalogLowPassFreq);
 stringent_s = min(absEquiAnalogLowPassFreq(1),absEquiAnalogLowPassFreq(4));
 
-N_1 = acosh(sqrt(D_2)/sqrt(D_1)) / acosh(stringent_s / equiAnalogLowPassFreq(3));
+N_1 = acosh(sqrt(D_2)/sqrt(D_1)) / acosh(stringent_s / absEquiAnalogLowPassFreq(3));
 N = ceil(N_1);
 
-omega_p = equiAnalogLowPassFreq(3);
+omega_p = f_eqv_analog_lpf_a(3);
 
 poles_a = zeros(2*N-1);
 A_k = zeros(2*N);
