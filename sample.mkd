@@ -3,11 +3,11 @@ Author        : Meet Pragnesh Shah | 13D070003
 Email         : meetshah1995@ee.iitb.ac.in
 Title Note    : **Filter Number 82**
 
-[pole_zero_digital]: images/pole_zero_digital.png "pole_zero_digital" { height:150%; width:150%;  margin-left=-30ex}
-[pole_zero_analog]: images/pole_zero_analog.png "pole_zero_analog" { height:150%; width:150%;  margin-left=-30ex }
-[pole_zero_lowpass]: images/pole_zero_lowpass.png "pole_zero_lowpass" { height:150%; width:150%;  margin-left=-30ex }
-[phase_response]: images/phase_response.png "phase_response" { height:150%; width:150%;  margin-left=-30ex }
-[freq_response]: images/freq_response.png "freq_response" { height:150%; width:150%;  margin-left=-30ex }
+[bandpass_IIR_pole_zero_digital]: images/bandpass_IIR_pole_zero_digital.png "bandpass_IIR_pole_zero_digital" { height:150%; width:150%;  margin-left=-30ex}
+[bandpass_IIR_pole_zero_analog]: images/bandpass_IIR_pole_zero_analog.png "bandpass_IIR_pole_zero_analog" { height:150%; width:150%;  margin-left=-30ex }
+[bandpass_IIR_pole_zero_lowpass]: images/bandpass_IIR_pole_zero_lowpass.png "pole_zero_lowpass" { height:150%; width:150%;  margin-left=-30ex }
+[bandpass_IIR_phase_response]: images/bandpass_IIR_phase_response.png "bandpass_IIR_phase_response" { height:150%; width:150%;  margin-left=-30ex }
+[bandpass_IIR_freq_response]: images/bandpass_IIR_freq_response.png "bandpass_IIR_freq_response" { height:150%; width:150%;  margin-left=-30ex }
 
 [bandpass_FIR_phase_response]: images/bandpass_FIR_phase_response.png "bandpass_FIR_phase_response" { height:150%; width:150%;  margin-left=-30ex }
 [bandpass__FIR_freq_response]: images/bandpass__FIR_freq_response.png "bandpass__FIR_freq_response" { height:150%; width:150%;  margin-left=-30ex }
