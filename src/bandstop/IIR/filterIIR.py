@@ -163,29 +163,10 @@ plt.ylabel('Imaginary')
 plt.xlabel('Real')
 
 # Printing the latex digital polynomial
-print "\nNormalized numerator:\n",nmrz/dmrz[0]
+print "\nNormalized numerator coefficients array:\n",nmrz/dmrz[0]
 printLatexPoly(nmrz/dmrz[0])
-print "\nNormalized denominator:\n",dmrz/dmrz[0]
+print "\nNormalized denominator coefficients array:\n",dmrz/dmrz[0]
 printLatexPoly(dmrz/dmrz[0])
-
-# Direct Form II for IIR
-An=dmrz/dmrz[0]
-Bn=nmrz/dmrz[0]
-N=len(dmrz)
-Kn=np.zeros(N)
-Cn=np.zeros(N)
-for i in np.arange(N-1,-1,-1):
-    Kn[i]=An[i]
-    Cn[i]=Bn[i]
-    An_tilda=An[::-1]
-    if(Kn[i] != 1):
-        An=(An-(Kn[i]*An_tilda))/(1-(Kn[i]**2))
-    Bn=(Bn-Cn[i]*An_tilda)
-    An=np.delete(An,len(An)-1)
-    Bn=np.delete(Bn,len(Bn)-1)
-
-print "\nLattice Coefficients:Kn\n",Kn[1:]
-print "\nLattice Coefficients:Cn\n",Cn
 
 #Plot Frequency response
 nyq_rate=sampling_freq/2
