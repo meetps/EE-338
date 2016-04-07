@@ -31,6 +31,8 @@ Title Note    : **Filter Number 82**
 [bandstop_FIR_phase_response]: images/bandstop_FIR_phase_response.png "bandstop_FIR_phase_response" { height:150%; width:150%;  margin-left=-25ex }
 [bandstop_FIR_filter_coeffs]: images/bandstop_FIR_filter_coeffs.png "bandstop_FIR_filter_coeffs" { height:150%; width:150%;  margin-left=-25ex }
 
+[dfII]: images/dfII.png "dfII" { height:150%; width:150%;  margin-left=-25ex }
+
 
 [TITLE]
 
@@ -142,6 +144,18 @@ The transformation is used get digital filter from analog filter :
 
 
 ![bandpass_IIR_freq_response]
+
+Direct Form II Realization and Coefficients 
+
+$ v_n = -\sum _{ k=1 }^{ N }{ a_k x_{n-k}} $
+
+$ y_n = \sum _{ k=1 }^{ N }{ b_k v_{n-k}}$
+
+The coefficients are as mentioned below : 
+
+![dfII]
+
+
 
 ### FIR Bandpass Filter
 
@@ -277,6 +291,10 @@ The transformation is used get digital filter from analog filter :
 
 ![bandstop_IIR_phase_response]
 
+Direct Form II Realization and Coefficients 
+
+![dfII]
+
 ### FIR Bandstop Filter
 
 Order Calculation 
@@ -330,6 +348,8 @@ $ - 0.0480 Z^{-26}  +  0.0033 Z^{-27}  +  0.0480 Z^{-28}  +  0.0072 Z^{-29}  -0.
 * [2] : http://ocw.mit.edu/resources/res-6-008-digital-signal-processing/
 * [3] : https://docs.scipy.org/doc/scipy-0.16.1/reference/generated/scipy.signal.kaiser.html
 * [4] : http://docs.scipy.org/doc/numpy-1.10.1/reference/generated/numpy.poly1d.html
+* [5] : http://electronics.stackexchange.com/questions/109358/why-is-direct-form-2-digital-filters-equivalent-to-direct-form-1
+* [6] : http://stackoverflow.com/questions/20917019/how-to-implement-a-filter-like-scipy-signal-lfilter
 
 # Code
 
