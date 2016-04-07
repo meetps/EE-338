@@ -10,13 +10,8 @@ Title Note    : **Filter Number 82**
 [bandpass_IIR_freq_response]: images/bandpass_IIR_freq_response.png "bandpass_IIR_freq_response" { height:150%; width:150%;  margin-left=-25ex }
 [bandpass_IIR_pole_zero_digital]: images/bandpass_IIR_pole_zero_digital.png "bandpass_IIR_pole_zero_digital" { height:150%; width:150%;  margin-left=-25ex }
 
-[bandpass_IIR_pole_zero_analog]: images/bandpass_IIR_pole_zero_analog.png "bandpass_IIR_pole_zero_analog" { height:150%; width:150%;  margin-left=-25ex }
-[bandpass_IIR_pole_zero_lowpass]: images/bandpass_IIR_pole_zero_lowpass.png "bandpass_IIR_pole_zero_lowpass" { height:150%; width:150%;  margin-left=-25ex }
-[bandpass_IIR_phase_response]: images/bandpass_IIR_phase_response.png "bandpass_IIR_phase_response" { height:150%; width:150%;  margin-left=-25ex }
-[bandpass_IIR_freq_response]: images/bandpass_IIR_freq_response.png "bandpass_IIR_freq_response" { height:150%; width:150%;  margin-left=-25ex }
-
 [bandpass_FIR_phase_response]: images/bandpass_FIR_phase_response.png "bandpass_FIR_phase_response" { height:150%; width:150%;  margin-left=-25ex }
-[bandpass__FIR_freq_response]: images/bandpass__FIR_freq_response.png "bandpass__FIR_freq_response" { height:150%; width:150%;  margin-left=-25ex-25ex }
+[bandpass__FIR_freq_response]: images/bandpass__FIR_freq_response.png "bandpass__FIR_freq_response" { height:150%; width:150%;  margin-left=-25ex }
 [bandpass_filter_coeffs]: images/bandpass_filter_coeffs.png "bandpass_filter_coeffs" { height:150%; width:150%;  margin-left=-25ex }
 [bandpass_stem_diagram]: images/bandpass_stem_diagram.png "bandpass_stem_diagram" { height:150%; width:150%;  margin-left=-25ex }
 
@@ -31,7 +26,7 @@ Title Note    : **Filter Number 82**
 [bandstop_FIR_phase_response]: images/bandstop_FIR_phase_response.png "bandstop_FIR_phase_response" { height:150%; width:150%;  margin-left=-25ex }
 [bandstop_FIR_filter_coeffs]: images/bandstop_FIR_filter_coeffs.png "bandstop_FIR_filter_coeffs" { height:150%; width:150%;  margin-left=-25ex }
 
-[dfII]: images/dfII.png "dfII" { height:150%; width:150%;  margin-left=-25ex }
+[iir_direct_form_ii]: images/iir_direct_form_ii.gif "iir_direct_form_ii" { width:auto; max-width:90% }
 
 
 [TITLE]
@@ -78,31 +73,38 @@ Title Note    : **Filter Number 82**
 
 We obtain the normalized frequcnies using the following formulae:
 
-$freq\_norm = \frac{freq*2*pi}{freq\_sampling}$
-
+~ Equation
+freq\_norm = \frac{freq*2*pi}{freq\_sampling}
+~
 * Normalized Passband limits : $1.13097336,  1.75929189$
 * Normalized Transitioned Passband limits : $1.00530965, 1.88495559$
 
 We use the following transformation to get the analog filter specifications corresponding to the above digital filter.
 
-* $\Omega = tan (\omega/2)$
-
-    * Passband limits : $0.6346193,  1.20879235$
-    * Stopband limits : $0.54975465, 1.37638192$
+~ Equation
+\Omega = tan (\omega/2)
+~
+    * Passband limits : 0.6346193,  1.20879235
+    * Stopband limits : 0.54975465, 1.37638192
 
 Since the passband is equiripple and stopband is monotonic we use the **Chebyschev** filter.
 
 For Low Pass Filter 
 
 * $ \Omega_p = 1$
+
 * $ \Omega_s = min( \frac{\Omega_{S1}^2 -\Omega_0^2}{B*\Omega_{S1}} ,\frac{\Omega_{S2}^2 -\Omega_0^2 }{B*\Omega_{S2}}) $
+
 * $ \Omega_0^2 = $$\Omega_P1 * \Omega_P2$$ = 0.767122$
+
 * $ B = \Omega_P2 - \Omega_P1 = 0.574173$
 
 
 The Transform used for transformation of analog low pass filter to analog band pass filter is:
 
- * $\Omega_L = \frac{\Omega^2 - \Omega_0^2}{B\Omega}$
+~ Equation
+\Omega_L = \frac{\Omega^2 - \Omega_0^2}{B\Omega}
+~
 
 The values for D1 and D2 hence obtained are :
 
@@ -111,30 +113,62 @@ The values for D1 and D2 hence obtained are :
 
 Now the order is obtained using : 
 
-* N = $ceil(\frac{acosh( \sqrt{ \frac{D2}{D1} } )}{acosh(\frac{\Omega_Ls}{\Omega_Lp})}$
-* N = 4
+
+~ Equation
+N = ceil(\frac{acosh( \sqrt{ \frac{D2}{D1} } )}{acosh(\frac{\Omega_Ls}{\Omega_Lp})}
+~
+
+
+~ Equation
+N = 4
+~
+
+Obtaining the Chebyshev poles
+
+\
+
+~ Equation
+{ A }_{ k }=\frac { (2k+1)*pi }{ 2*N }
+~ 
+~ Equation
+{ B }_{ k }=\frac { asinh(1/\varepsilon ) }{ N }
+~
+~ Equation
+s =\Omega _{ p }sin({ A }_{ k })sinh({ B }_{ k })+j\Omega _{ p }cos({ A }_{ k })cosh({ B }_{ k })
+~
+
+\
 
 The lowpass filter transfer function is as follows :
 
-                                                 
-* $ H_{analog\_lowpass} = \frac{0.2372}{s^4 + (0.8342 s^3 + 1.348s^2 + 0.6243s + 0.2373}$
+
+~ Equation
+H_{analog\_lowpass} = \frac{0.2372}{s^4 + (0.8342 s^3 + 1.348s^2 + 0.6243s + 0.2373}
+~
 
 ![bandpass_IIR_pole_zero_lowpass]
 
 
 The analog bandpass filter transfer function is as follows :
 
-* $ H_{analog\_bandpass} = \frac{0.02579 s^4}{s^8 + 0.479 s^7 + 3.513 s^6 + 1.22 s^5 + 4.238s^4 + (0.9362 s^3x + (2.067 s^2 +  0.2162 s + 0.3463}$
+$ H_{analog\_bandpass} =$
+
+~ Equation
+\frac{0.02579 s^4}{s^8 + 0.479 s^7 + 3.513 s^6 + 1.22 s^5 + 4.238s^4 + (0.9362 s^3x + (2.067 s^2 +  0.2162 s + 0.3463}
+~
 
 ![bandpass_IIR_pole_zero_analog]
 
 The transformation is used get digital filter from analog filter :
 
-* $S = \frac{1- Z^{-1}}{1+Z^{-1}}$
 
-* $ H_{digital\_bandpass}(Z) = $
+~ Equation
+S = \frac{1- Z^{-1}}{1+Z^{-1}}
+~
 
-  $ \frac{0.0018 - 0.0073 Z^{-2} + 0.0110 Z^{-4} -0.0073 Z^{-6} + 0.0018 Z^{-8} } {1 + -0.9386 Z^{-1} +  3.4589 Z^{-2} + -2.3398 Z^{-3} +  4.5567 Z^{-4} + -2.0583 Z^{-5} + 2.6856 Z^{-6} + -0.6326 Z^{-7} +  0.5930 Z^{-8}}$
+$ H_{digital\_bandpass}(Z) = $
+
+$ \frac{0.0018 - 0.0073 Z^{-2} + 0.0110 Z^{-4} -0.0073 Z^{-6} + 0.0018 Z^{-8} } {1 + -0.9386 Z^{-1} +  3.4589 Z^{-2} + -2.3398 Z^{-3} +  4.5567 Z^{-4} + -2.0583 Z^{-5} + 2.6856 Z^{-6} + -0.6326 Z^{-7} +  0.5930 Z^{-8}}$
 
 ![bandpass_IIR_pole_zero_digital]
 
@@ -147,23 +181,52 @@ The transformation is used get digital filter from analog filter :
 
 Direct Form II Realization and Coefficients 
 
-$ v_n = -\sum _{ k=1 }^{ N }{ a_k x_{n-k}} $
+~ Equation
+v_n = -\sum _{ k=1 }^{ N }{ a_k x_{n-k}}
+~
 
-$ y_n = \sum _{ k=1 }^{ N }{ b_k v_{n-k}}$
+~ Equation
+y_n = \sum _{ k=1 }^{ N }{ b_k v_{n-k}}
+~
 
-The coefficients are as mentioned below : 
+A rough sketch of the Direct Form II realization.
 
-![dfII]
+\
 
+![iir_direct_form_ii]
 
+The coefficients as shown in the above figure are as mentioned below :
+
+N (in above figure) = 8
+
+M (in above figure) = 8
+
+$Denominator [a[1] ,a[2] .... a[N]] = $
+
+$ [1, -0.93866072, 3.45891039, -2.33988761, 4.55677433, -2.05834928, 2.68565685, -0.63261539, 0.59307997]$
+
+$Numerator [b[1] , b[2] .... b[M]] = $
+
+$[0.00183995, 0, -0.00735979, 0, 0.01103962, 0, -0.00735979, 0, 0.00183995]$
 
 ### FIR Bandpass Filter
 
 Order Calculation 
 
-* $(2*N + 1) > 1 + ((A-8)/2.285 * \Delta_{\omega})$
-* $\Delta_{\omega} = \omega_s - \omega_p$ 
-* $A = -20*log 10 (\delta_{tolerance})$
+\
+
+~ Equation
+(2*N + 1) > 1 + ((A-8)/2.285 * \Delta_{\omega})
+~
+
+~ Equation
+\Delta_{\omega} = \omega_s - \omega_p
+~
+
+~ Equation
+A = -20*log 10 (\delta_{tolerance})
+~
+\
 
 The ideal impulse response of the bandpass filter and cutoff frequencies is obtained from the normalized frequencies using : 
 
@@ -177,17 +240,21 @@ We then multiply the ideal impulse response with a **Kaiser window** to get the 
 
 $ H(z) = $
 
-$ 0.0237 - 0.0072 Z^{-1}  -0.0480 Z^{-2}  -0.0033 Z^{-3}  +  0.0480 Z^{-4} $
+$-0.0245 Z^{0}  -0.0177 Z^{-1}  +  0.0109 Z^{-2}  +  0.0040 Z^{-3}  +  0.0042 Z^{-4}  +  0.0237 Z^{-5}$
 
-$ + 0.0116 Z^{-5}  -0.0159 Z^{-6}  +  0.0053 Z^{-7}  -0.0338 Z^{-8}  -0.0596 Z^{-9}  +  0.0712 Z^{-10} $
+$-0.0072 Z^{-6}  -0.0480 Z^{-7}  -0.0033 Z^{-8}  +  0.0480 Z^{-9}  +  0.0116 Z^{-10}$
 
-$ + 0.1392 Z^{-11}  -0.0707 Z^{-12}  -0.2111 Z^{-13}  +  0.0294 Z^{-14}  +  0.2400 Z^{-15} $
+$-0.0159 Z^{-11}  +  0.0053 Z^{-12}  -0.0338 Z^{-13}  -0.0596 Z^{-14}  +  0.0712 Z^{-15}$
 
-$ + 0.0294 Z^{-16}  -0.2111 Z^{-17}  -0.0707 Z^{-18}  +  0.1392 Z^{-19}  +  0.0712 Z^{-20} $
+$+  0.1392 Z^{-16}  -0.0707 Z^{-17}  -0.2111 Z^{-18}  +  0.0294 Z^{-19}  +  0.2400 Z^{-20}$
 
-$ -0.0596 Z^{-21}  -0.0338 Z^{-22}  +  0.0053 Z^{-23}  -0.0159 Z^{-24}  +  0.0116 Z^{-25}$
+$+  0.0294 Z^{-21}  -0.2111 Z^{-22}  -0.0707 Z^{-23}  +  0.1392 Z^{-24}  +  0.0712 Z^{-25}$
 
-$ + 0.0480 Z^{-26}  -0.0033 Z^{-27}  -0.0480 Z^{-28}  -0.0072 Z^{-29}  +  0.0237 Z^{-30} $ 
+$-0.0596 Z^{-26}  -0.0338 Z^{-27}  +  0.0053 Z^{-28}  -0.0159 Z^{-29}  +  0.0116 Z^{-30}$
+
+$+  0.0480 Z^{-31}  -0.0033 Z^{-32}  -0.0480 Z^{-33}  -0.0072 Z^{-34}  +  0.0237 Z^{-35}$
+
+$+  0.0042 Z^{-36}  +  0.0040 Z^{-37}  +  0.0109 Z^{-38}  -0.0177 Z^{-39}  -0.0245 Z^{-40}$ 
 
 
 **Phase and Frequency Response Plots of the filter**
@@ -221,14 +288,18 @@ $ + 0.0480 Z^{-26}  -0.0033 Z^{-27}  -0.0480 Z^{-28}  -0.0072 Z^{-29}  +  0.0237
 
 We obtain the normalized frequencies using the following formulae:
 
-$freq\_norm = \frac{freq*2*pi}{freq\_sampling}$
+~ Equation
+freq\_norm = \frac{freq*2*pi}{freq\_sampling}
+~
 
 * Normalized Stopband limits : $1.13097336,  1.75929189$
 * Normalized Transitioned Stopband limits : $1.00530965, 1.88495559$
 
 We use the following transformation to get the analog filter specifications corresponding to the above digital filter.
 
-* $\Omega = tan (\omega/2)$
+~ Equation
+\Omega = tan (\omega/2)
+~
 
     * Passband limits : $0.6346193,  1.20879235$
     * Stopband limits : $0.54975465, 1.37638192$
@@ -237,14 +308,26 @@ Since the passband and stopband both are monotonic we use the **ButterWorth** fi
 
 For Low Pass Filter 
 
-* $ \Omega_p = 1$
-* $ \Omega_s = min(\frac{B*\Omega_{S1}}{\Omega_0^2 - \Omega_{S1}^2} ,\frac{B*\Omega_{S2}}{\Omega_0^2 - \Omega_{S2}^2}) $
-* $ \Omega_0^2 = $$\Omega_P1 * \Omega_P2$$ = 0.767122$
-* $ B = \Omega_P2 - \Omega_P1 = 0.574173$
+~ Equation
+\Omega_p = 1
+~
+~ Equation
+\Omega_s = min(\frac{B*\Omega_{S1}}{\Omega_0^2 - \Omega_{S1}^2} ,\frac{B*\Omega_{S2}}{\Omega_0^2 - \Omega_{S2}^2})
+~
+
+~ Equation
+\Omega_0^2 = \Omega_P1 * \Omega_P2 = 0.767122
+~
+
+~ Equation
+B = \Omega_P2 - \Omega_P1 = 0.574173
+~
 
 The Transform used for transformation of analog low pass filter to analog band stop filter is:
 
- * $\Omega_L = \frac{B\Omega}{\Omega_0^2 - \Omega^2}$
+~ Equation
+\Omega_L = \frac{B\Omega}{\Omega_0^2 - \Omega^2}
+~
 
 The values for D1 and D2 hence obtained are :
 
@@ -253,13 +336,19 @@ The values for D1 and D2 hence obtained are :
 
 Now the order is obtained using : 
 
-* N = $ceil(\frac{log( \sqrt{ \frac{D2}{D1} } )}{(log(\frac{\Omega_Ls}{\Omega_Lp})})$
+~ Equation
+N = ceil(\frac{log( \sqrt{ \frac{D2}{D1} } )}{log(\frac{\Omega_Ls}{\Omega_Lp})})
+~
+
 * N = 7
 
 The lowpass filter transfer function is as follows :
 
 
-* $ H_{analog\_lowpass} = \frac{1.68143395125}{ s^7 + 4.84s^6 + 11.71s^5 + 18.23s^4 + 19.64s^3 + 14.64s^2 + 7.016s + 1.681 }$
+* $ H_{analog\_lowpass} = $
+~ Equation
+\frac{1.68143395125}{ s^7 + 4.84s^6 + 11.71s^5 + 18.23s^4 + 19.64s^3 + 14.64s^2 + 7.016s + 1.681 }
+~
 
 ![bandstop_IIR_pole_zero_lowpass]
 
@@ -277,11 +366,18 @@ The transformation is used get digital filter from analog filter :
 
 *Note : The coefficients are rounded to 2 numerics to fit here, the actual coefficients are upto 6 decimals*
 
-* $S = \frac{1- Z^{-1}}{1+Z^{-1}}$
+~ Equation
+S = \frac{1- Z^{-1}}{1+Z^{-1}}
+~
 
-* $ H_{digital\_bandstop}(Z) = $
+~ Equation
+H_{digital\_bandstop}(Z) =
+~
 
-  $ \frac{0.14-0.28 Z^{-1} + 1.2Z^{-2}  -1.8 Z^{-3} + 4.2 Z^{-4} -4.6 Z^{-5} + 7.5 Z^{-6}  -6.3 Z^{-7}  +  7.5 Z^{-8}  -4.6 Z^{-9}  +  4.2 Z^{-10}  -1.8 Z^{-11}  +  1.2 Z^{-12}  -0.2 Z^{-13}  +  0.14 Z^{-14}}{ 1 -1.43 Z^{-1}  +  4.20 Z^{-2}  -4.51 Z^{-3}  +  7.55 Z^{-4}  -6.33 Z^{-5}  +  7.51 Z^{-6}  -4.90 Z^{-7}  +  4.42 Z^{-8}  -2.18 Z^{-9}  +  1.53 Z^{-10}  -0.52 Z^{-11}  +  0.28 Z^{-12}  -0.05 Z^{-13}  +  0.02 Z^{-14}}$
+\
+
+[$ \frac{0.14-0.28 Z^{-1} + 1.2Z^{-2}  -1.8 Z^{-3} + 4.2 Z^{-4} -4.6 Z^{-5} + 7.5 Z^{-6}  -6.3 Z^{-7}  +  7.5 Z^{-8}  -4.6 Z^{-9}  +  4.2 Z^{-10}  -1.8 Z^{-11}  +  1.2 Z^{-12}  -0.2 Z^{-13}  +  0.14 Z^{-14}}{ 1 -1.43 Z^{-1}  +  4.20 Z^{-2}  -4.51 Z^{-3}  +  7.55 Z^{-4}  -6.33 Z^{-5}  +  7.51 Z^{-6}  -4.90 Z^{-7}  +  4.42 Z^{-8}  -2.18 Z^{-9}  +  1.53 Z^{-10}  -0.52 Z^{-11}  +  0.28 Z^{-12}  -0.05 Z^{-13}  +  0.02 Z^{-14}}$]{ margin-left=-20ex }
+
 ![bandstop_IIR_pole_zero_digital]
 
 **Phase and Frequency Response Plots of the filter**
@@ -293,15 +389,53 @@ The transformation is used get digital filter from analog filter :
 
 Direct Form II Realization and Coefficients 
 
-![dfII]
+~ Equation
+v_n = -\sum _{ k=1 }^{ N }{ a_k x_{n-k}}
+~
+
+~ Equation
+y_n = \sum _{ k=1 }^{ N }{ b_k v_{n-k}}
+~
+
+A rough sketch of the Direct Form II realization.
+
+\
+
+![iir_direct_form_ii]
+
+The coefficients as shown in the above figure are as mentioned below :
+
+N (in above figure) = 14
+
+M (in above figure) = 14
+
+$Denominator [a[1] ,a[2] .... a[N]] = $
+
+[1, -1.42816172,  4.19511603, -4.51260288,  7.55457787, -6.33193601,
+  7.50746551, -4.89798415,  4.42314054, -2.17658286,  1.53096969, -0.52211286,
+  0.28451751, -0.05245871,  0.02140885]
+
+$Numerator [b[1] , b[2] .... b[M]] = $
+
+[ 0.1463183, -0.28374442,  1.26004732, -1.81134919,  4.28194447, -4.69671079,
+  7.57028791, -6.33823038,  7.57028791, -4.69671079,  4.28194447, -1.81134919,
+  1.26004732, -0.28374442,  0.1463183 ]
 
 ### FIR Bandstop Filter
 
 Order Calculation 
 
-* $(2*N + 1) > 1 + ((A-8)/2.285 * \Delta_{\omega})$
-* $\Delta_{\omega} = \omega_s - \omega_p$ 
-* $A = -20*log 10 (\delta_{tolerance})$
+~ Equation
+(2*N + 1) > 1 + ((A-8)/2.285 * \Delta_{\omega})
+~
+
+~ Equation
+\Delta_{\omega} = \omega_s - \omega_p
+~ 
+
+~ Equation
+A = -20*log 10 (\delta_{tolerance})
+~
 
 The ideal impulse response of the bandpass filter and cutoff frequencies is obtained from the normalized frequencies using : 
 
@@ -315,17 +449,21 @@ We then multiply the ideal impulse response with a **Kaiser window** to get the 
 
 $ H(z) = $
 
-$ -0.0237 Z^{0}  +  0.0072 Z^{-1}  +  0.0480 Z^{-2}  +  0.0033 Z^{-3}  -0.0480 Z^{-4}  -0.0116 Z^{-5}$
+$0.0245 Z^{0}  +  0.0177 Z^{-1}  -0.0109 Z^{-2}  -0.0040 Z^{-3}  -0.0042 Z^{-4}  -0.0237 Z^{-5}$
 
-$ +  0.0159 Z^{-6}  -0.0053 Z^{-7}  +  0.0338 Z^{-8}  +  0.0596 Z^{-9}  -0.0712 Z^{-10} $
+$+  0.0072 Z^{-6}  +  0.0480 Z^{-7}  +  0.0033 Z^{-8}  -0.0480 Z^{-9}  -0.0116 Z^{-10}$
 
-$ - 0.1392 Z^{-11}  +  0.0707 Z^{-12}  +  0.2111 Z^{-13}  -0.0294 Z^{-14}  +  0.7600 Z^{-15} $
+$+  0.0159 Z^{-11}  -0.0053 Z^{-12}  +  0.0338 Z^{-13}  +  0.0596 Z^{-14}  -0.0712 Z^{-15}$
 
-$ - 0.0294 Z^{-16}  +  0.2111 Z^{-17}  +  0.0707 Z^{-18}  -0.1392 Z^{-19}  -0.0712 Z^{-20} $
+$-0.1392 Z^{-16}  +  0.0707 Z^{-17}  +  0.2111 Z^{-18}  -0.0294 Z^{-19}  +  0.7600 Z^{-20}$
 
-$ + 0.0596 Z^{-21}  +  0.0338 Z^{-22}  -0.0053 Z^{-23}  +  0.0159 Z^{-24}  -0.0116 Z^{-25} $
+$-0.0294 Z^{-21}  +  0.2111 Z^{-22}  +  0.0707 Z^{-23}  -0.1392 Z^{-24}  -0.0712 Z^{-25}$
 
-$ - 0.0480 Z^{-26}  +  0.0033 Z^{-27}  +  0.0480 Z^{-28}  +  0.0072 Z^{-29}  -0.0237 Z^{-30} $
+$+  0.0596 Z^{-26}  +  0.0338 Z^{-27}  -0.0053 Z^{-28}  +  0.0159 Z^{-29}  -0.0116 Z^{-30}$
+
+$-0.0480 Z^{-31}  +  0.0033 Z^{-32}  +  0.0480 Z^{-33}  +  0.0072 Z^{-34}  -0.0237 Z^{-35}$
+
+$-0.0042 Z^{-36}  -0.0040 Z^{-37}  -0.0109 Z^{-38}  +  0.0177 Z^{-39}  +  0.0245 Z^{-40}$
 
 
 **Phase and Frequency Response Plots of the filter**
@@ -525,29 +663,10 @@ nmrz = (digital_numer.c).round(decimals=6).real
 dmrz = (digital_denom.c).round(decimals=6).real
 
 # Printing the latex digital polynomial
-print "\nNormalized numerator Array:\n",nmrz/dmrz[0]
+print "\nNormalized numerator coefficients array:\n",nmrz/dmrz[0]
 printLatexPoly(nmrz/dmrz[0])
-print "\nNormalized denominator Array:\n",dmrz/dmrz[0]
+print "\nNormalized denominator coefficients array:\n",dmrz/dmrz[0]
 printLatexPoly(dmrz/dmrz[0])
-
-# Direct Form II for IIR
-An=dmrz/dmrz[0]
-Bn=nmrz/dmrz[0]
-N=len(dmrz)
-Kn=np.zeros(N)
-Cn=np.zeros(N)
-for i in np.arange(N-1,-1,-1):
-    Kn[i]=An[i]
-    Cn[i]=Bn[i]
-    An_tilda=An[::-1]
-    if(Kn[i] != 1):
-        An=(An-(Kn[i]*An_tilda))/(1-(Kn[i]**2))
-    Bn=(Bn-Cn[i]*An_tilda)
-    An=np.delete(An,len(An)-1)
-    Bn=np.delete(Bn,len(Bn)-1)
-
-print "\nLattice Coefficients:Kn\n",Kn[1:]
-print "\nLattice Coefficients:Cn\n",Cn
 
 # Plot Frequency response
 nyq_rate = sampling_freq/2
@@ -638,8 +757,17 @@ elif(A<=50):
 else:
     alpha=0.1102(A-8.7)
 
-# Order Calculation
-N = np.ceil((A-8)/(2*2.285*del_omega))
+'''
+Order Calculation for the FIR filter
+Since a filter designed for the critcal value of 
+order N does nto meet the tolerance specifications,
+we need to increase the order by an empirical factor 
+order_offset which can be concluded by seeing the frequency
+response plots and ensuring they meet the tolerance specs. 
+'''
+order_offset = 5
+N_critical = np.ceil((A-8)/(2*2.285*del_omega))
+N = N_critical + order_offset
 
 # Cutoff frequency calculation ideal impulse response
 omega_c1 = (digital_freq[1]+digital_freq[0])*0.5
@@ -879,29 +1007,10 @@ plt.ylabel('Imaginary')
 plt.xlabel('Real')
 
 # Printing the latex digital polynomial
-print "\nNormalized numerator:\n",nmrz/dmrz[0]
+print "\nNormalized numerator coefficients array:\n",nmrz/dmrz[0]
 printLatexPoly(nmrz/dmrz[0])
-print "\nNormalized denominator:\n",dmrz/dmrz[0]
+print "\nNormalized denominator coefficients array:\n",dmrz/dmrz[0]
 printLatexPoly(dmrz/dmrz[0])
-
-# Direct Form II for IIR
-An=dmrz/dmrz[0]
-Bn=nmrz/dmrz[0]
-N=len(dmrz)
-Kn=np.zeros(N)
-Cn=np.zeros(N)
-for i in np.arange(N-1,-1,-1):
-    Kn[i]=An[i]
-    Cn[i]=Bn[i]
-    An_tilda=An[::-1]
-    if(Kn[i] != 1):
-        An=(An-(Kn[i]*An_tilda))/(1-(Kn[i]**2))
-    Bn=(Bn-Cn[i]*An_tilda)
-    An=np.delete(An,len(An)-1)
-    Bn=np.delete(Bn,len(Bn)-1)
-
-print "\nLattice Coefficients:Kn\n",Kn[1:]
-print "\nLattice Coefficients:Cn\n",Cn
 
 #Plot Frequency response
 nyq_rate=sampling_freq/2
@@ -999,8 +1108,17 @@ elif(A<=50):
 else:
     alpha=0.1102(A-8.7)
 
-# Order Calculation
-N = np.ceil((A-8)/(2*2.285*del_omega))
+'''
+Order Calculation for the FIR filter
+Since a filter designed for the critcal value of 
+order N does nto meet the tolerance specifications,
+we need to increase the order by an empirical factor 
+order_offset which can be concluded by seeing the frequency
+response plots and ensuring they meet the tolerance specs. 
+'''
+order_offset = 5
+N_critical = np.ceil((A-8)/(2*2.285*del_omega))
+N = N_critical + order_offset
 
 # Cutoff frequency calculation ideal impulse response
 omega_c1 = (digital_freq[1]+digital_freq[0])*0.5

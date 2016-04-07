@@ -55,8 +55,17 @@ elif(A<=50):
 else:
     alpha=0.1102(A-8.7)
 
-# Order Calculation
-N = np.ceil((A-8)/(2*2.285*del_omega))
+'''
+Order Calculation for the FIR filter
+Since a filter designed for the critcal value of 
+order N does nto meet the tolerance specifications,
+we need to increase the order by an empirical factor 
+order_offset which can be concluded by seeing the frequency
+response plots and ensuring they meet the tolerance specs. 
+'''
+order_offset = 5
+N_critical = np.ceil((A-8)/(2*2.285*del_omega))
+N = N_critical + order_offset
 
 # Cutoff frequency calculation ideal impulse response
 omega_c1 = (digital_freq[1]+digital_freq[0])*0.5
