@@ -33,3 +33,5 @@
 * Signal Bandlimit = 45 kHz.
 * Passband high limit, B_h = 18 kHz.
 * Passband low limit, B_l = 28 kHz.
+
+Report made with Madako.
